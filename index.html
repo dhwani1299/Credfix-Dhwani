@@ -345,22 +345,46 @@ h2{font-size:clamp(24px,4vw,42px);line-height:1.1;letter-spacing:-.02em}
 .carousel-stage{
   display:flex;justify-content:center;
   background:#0d0d0d;
-  border-radius:24px;
-  padding:32px;
+  border-radius:clamp(16px,3vw,24px);
+  padding:clamp(12px,3vw,32px);
   overflow:hidden;
 }
 .c-wrap{width:100%;max-width:420px}
-.c-outer{border-radius:18px;overflow:hidden;width:100%}
+.c-outer{border-radius:clamp(12px,2vw,18px);overflow:hidden;width:100%}
 .c-track{display:flex;transition:transform .45s cubic-bezier(.4,0,.2,1);width:100%}
 .c-slide{
-  min-width:100%;aspect-ratio:1/1;
+  min-width:100%;
   position:relative;overflow:hidden;
   display:flex;flex-direction:column;background:#0d0d0d;
+  /* KEY FIX: aspect-ratio only on large screens where content fits */
+  aspect-ratio:1/1;
 }
-.c-brand-strip{position:absolute;bottom:20px;right:20px;display:flex;align-items:center;gap:5px;z-index:10}
+@media(max-width:600px){
+  .c-slide{
+    aspect-ratio:unset !important;
+    min-height:min(100vw, 380px);
+    height:auto;
+  }
+  /* Ensure content areas have enough bottom clearance for brand strip */
+  .c1-cover,.c1-rs,.c1-cta{padding-bottom:52px !important}
+  .c2-stat,.c2-cover-body,.c2-cta-body{padding-bottom:44px}
+  /* Tighten spacing so content fits */
+  .c2-num-lbl{margin-top:4px;margin-bottom:10px}
+  .c2-line{margin-bottom:10px}
+  .c2-sh{margin-bottom:6px}
+  .c2-q{margin-top:10px}
+  .c1-rn{margin-bottom:12px}
+  .c1-vis{margin-bottom:14px}
+  .c1-rh{margin-bottom:8px}
+}
+.c-brand-strip{position:absolute;bottom:16px;right:18px;display:flex;align-items:center;gap:5px;z-index:10}
 .c-brand-dot{width:6px;height:6px;border-radius:50%;background:#F5A623}
 .c-brand-name{font-size:11px;font-weight:600;color:rgba(255,255,255,.3);letter-spacing:.06em;text-transform:uppercase}
-.c-sn{position:absolute;top:18px;right:20px;font-size:11px;color:rgba(255,255,255,.2);z-index:10}
+.c-sn{position:absolute;top:16px;right:18px;font-size:11px;color:rgba(255,255,255,.2);z-index:10}
+@media(max-width:500px){
+  .c-brand-strip{bottom:12px;right:14px}
+  .c-sn{top:14px;right:14px}
+}
 
 /* C1 — Emotional slides */
 .c1-bg{position:absolute;inset:0;background:radial-gradient(ellipse 80% 60% at 50% 0%,rgba(245,166,35,.12) 0%,transparent 60%),radial-gradient(ellipse 60% 40% at 20% 100%,rgba(245,166,35,.06) 0%,transparent 50%)}
@@ -368,7 +392,7 @@ h2{font-size:clamp(24px,4vw,42px);line-height:1.1;letter-spacing:-.02em}
 .c1-wm{position:absolute;top:7%;right:6%;z-index:5;pointer-events:none;text-align:right}
 .c1-wm-n{font-family:"Playfair Display",serif;font-size:clamp(40px,11%,60px);color:rgba(255,255,255,.05);line-height:1}
 .c1-wm-arr{font-size:clamp(36px,10%,52px);color:rgba(232,64,64,.1);line-height:.8;margin-top:3px}
-.c1-cover{position:relative;z-index:5;padding:28px 28px 64px;height:100%;display:flex;flex-direction:column;justify-content:flex-end}
+.c1-cover{position:relative;z-index:5;padding:clamp(20px,6%,28px) clamp(20px,7%,28px) clamp(48px,15%,64px);height:100%;display:flex;flex-direction:column;justify-content:flex-end}
 .c1-ey{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#F5A623;margin-bottom:12px}
 .c1-ch{font-family:"Playfair Display",serif;font-size:clamp(22px,6.5%,32px);line-height:1.15;color:#fff;margin-bottom:12px}
 .c1-ch em{color:#F5A623;font-style:italic}
@@ -383,7 +407,7 @@ h2{font-size:clamp(24px,4vw,42px);line-height:1.1;letter-spacing:-.02em}
 .c1-glow.amber{background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(245,166,35,.08) 0%,transparent 60%)}
 .c1-glow.blue{background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(59,130,246,.08) 0%,transparent 60%)}
 .c1-glow.green{background:radial-gradient(ellipse 70% 50% at 50% 0%,rgba(16,185,129,.07) 0%,transparent 60%)}
-.c1-rs{position:relative;z-index:5;padding:28px 28px 64px;height:100%;display:flex;flex-direction:column;justify-content:center}
+.c1-rs{position:relative;z-index:5;padding:clamp(18px,5%,28px) clamp(20px,7%,28px) clamp(48px,15%,64px);height:100%;display:flex;flex-direction:column;justify-content:center;gap:0}
 .c1-rn{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;margin-bottom:18px}
 .c1-rn.red{color:#E84040}.c1-rn.amber{color:#F5A623}.c1-rn.blue{color:#3B82F6}.c1-rn.green{color:#10B981}
 .c1-vis{margin-bottom:20px}
@@ -419,7 +443,7 @@ h2{font-size:clamp(24px,4vw,42px);line-height:1.1;letter-spacing:-.02em}
 /* cta slide */
 .c1-cta-bg{position:absolute;inset:0;background:radial-gradient(ellipse 100% 80% at 50% 110%,rgba(245,166,35,.1) 0%,transparent 55%)}
 .c1-cta-mark{position:absolute;bottom:-2%;right:-2%;font-family:"Playfair Display",serif;font-size:clamp(80px,22%,130px);color:rgba(245,166,35,.04);line-height:1;pointer-events:none;z-index:1}
-.c1-cta{position:relative;z-index:5;padding:28px 28px;height:100%;display:flex;flex-direction:column;justify-content:center}
+.c1-cta{position:relative;z-index:5;padding:clamp(20px,6%,28px) clamp(20px,7%,28px) clamp(44px,13%,56px);height:100%;display:flex;flex-direction:column;justify-content:center}
 .c1-cta-sm{font-size:11px;color:#F5A623;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;font-weight:600}
 .c1-cta-h{font-family:"Playfair Display",serif;font-size:clamp(22px,6%,30px);line-height:1.2;color:#fff;margin-bottom:12px}
 .c1-cta-h em{color:#F5A623;font-style:italic}
@@ -434,7 +458,7 @@ h2{font-size:clamp(24px,4vw,42px);line-height:1.1;letter-spacing:-.02em}
 .c2-sn{font-size:11px;color:rgba(255,255,255,.2)}
 .c2-btm{padding:0 22px 18px;position:relative;z-index:5;margin-top:auto;flex-shrink:0}
 .c2-src{font-size:9px;color:rgba(255,255,255,.18);letter-spacing:.04em}
-.c2-cover-body{position:relative;z-index:5;padding:0 22px;flex:1;display:flex;flex-direction:column;justify-content:center}
+.c2-cover-body{position:relative;z-index:5;padding:0 clamp(14px,5%,22px);flex:1;display:flex;flex-direction:column;justify-content:center}
 .c2-cover-tag{display:inline-block;border:1px solid rgba(245,166,35,.4);color:#F5A623;font-size:10px;font-weight:500;letter-spacing:.1em;text-transform:uppercase;padding:4px 11px;border-radius:2px;margin-bottom:18px;width:fit-content}
 .c2-cover-h{font-family:"Syne",sans-serif;font-size:clamp(24px,7%,34px);font-weight:800;line-height:1.05;letter-spacing:-.02em;color:#fff;margin-bottom:12px}
 .c2-cover-h span{color:#F5A623}
@@ -445,7 +469,7 @@ h2{font-size:clamp(24px,4vw,42px);line-height:1.1;letter-spacing:-.02em}
 .c2-glow.red{background:radial-gradient(circle,rgba(232,64,64,.08) 0%,transparent 65%)}
 .c2-glow.blue{background:radial-gradient(circle,rgba(59,130,246,.08) 0%,transparent 65%)}
 .c2-glow.green{background:radial-gradient(circle,rgba(16,185,129,.07) 0%,transparent 65%)}
-.c2-stat{position:relative;z-index:5;padding:0 22px;flex:1;display:flex;flex-direction:column;justify-content:center}
+.c2-stat{position:relative;z-index:5;padding:0 clamp(14px,5%,22px);flex:1;display:flex;flex-direction:column;justify-content:center;overflow:hidden}
 .c2-num{font-family:"Syne",sans-serif;font-size:clamp(52px,14.5%,72px);font-weight:800;line-height:.9;letter-spacing:-.04em;color:#fff}
 .c2-num .u{font-size:clamp(28px,7.5%,38px);font-weight:600;vertical-align:super}
 .c2-num-lbl{font-size:clamp(10px,2.8%,13px);color:rgba(255,255,255,.25);letter-spacing:.06em;text-transform:uppercase;margin-top:8px;margin-bottom:16px;max-width:90%;line-height:1.4}
@@ -457,7 +481,7 @@ h2{font-size:clamp(24px,4vw,42px);line-height:1.1;letter-spacing:-.02em}
 .c2-ql{font-size:9px;color:#F5A623;letter-spacing:.1em;text-transform:uppercase;margin-bottom:3px;font-weight:600}
 .c2-qt{font-size:clamp(11px,3%,13px);color:rgba(255,255,255,.45);line-height:1.4;font-style:italic}
 .c2-cta-bg{position:absolute;inset:0;background:radial-gradient(ellipse 100% 80% at 50% 110%,rgba(245,166,35,.08) 0%,transparent 55%)}
-.c2-cta-body{position:relative;z-index:5;padding:0 22px;flex:1;display:flex;flex-direction:column;justify-content:center}
+.c2-cta-body{position:relative;z-index:5;padding:0 clamp(14px,5%,22px);flex:1;display:flex;flex-direction:column;justify-content:center}
 .c2-cta-ey{font-size:10px;color:#F5A623;letter-spacing:.1em;text-transform:uppercase;margin-bottom:14px;font-weight:600}
 .c2-cta-h{font-family:"Syne",sans-serif;font-size:clamp(24px,6.5%,30px);font-weight:800;line-height:1.1;letter-spacing:-.02em;color:#fff;margin-bottom:12px}
 .c2-cta-h span{color:#F5A623}
@@ -524,6 +548,49 @@ h2{font-size:clamp(24px,4vw,42px);line-height:1.1;letter-spacing:-.02em}
 .footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:clamp(18px,3vw,24px);display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px}
 .footer-copy{font-size:12px;color:rgba(255,255,255,.2)}
 .footer-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.2);color:var(--amber);font-size:12px;font-weight:600;padding:6px 16px;border-radius:20px}
+
+/* ══════════════════════════════════════
+   CAROUSEL MOBILE CRITICAL FIXES
+   On screens < 520px the 1:1 aspect ratio
+   clips content. We remove it and let the
+   slide grow to its natural content height.
+══════════════════════════════════════ */
+@media(max-width:520px){
+  .carousel-stage{padding:10px}
+  .c-outer{border-radius:12px}
+  /* Remove aspect ratio — let content dictate height */
+  .c-slide{
+    aspect-ratio:unset !important;
+    height:auto !important;
+    min-height:0 !important;
+  }
+  /* Give bottom clearance so brand strip never covers text */
+  .c1-cover{padding-bottom:56px !important}
+  .c1-rs{padding-bottom:56px !important}
+  .c1-cta{padding-bottom:48px !important}
+  .c2-cover-body{padding-bottom:44px !important}
+  .c2-stat{padding-bottom:44px !important}
+  .c2-cta-body{padding-bottom:44px !important}
+  /* Tighten vertical rhythm so slides stay compact */
+  .c2-num{font-size:clamp(44px,13vw,60px)}
+  .c2-num-lbl{margin-top:5px;margin-bottom:12px;font-size:clamp(9px,2.6vw,12px)}
+  .c2-line{margin-bottom:12px}
+  .c2-sh{font-size:clamp(14px,4vw,18px);margin-bottom:6px}
+  .c2-sb{font-size:clamp(11px,3vw,13px)}
+  .c2-q{margin-top:12px}
+  .c2-qt{font-size:clamp(10px,2.8vw,12px)}
+  .c1-rn{margin-bottom:12px}
+  .c1-vis{margin-bottom:12px}
+  .c1-ch{font-size:clamp(20px,6vw,26px)}
+  .c1-rh{font-size:clamp(18px,5.5vw,24px);margin-bottom:8px}
+  .c1-rb{font-size:clamp(11px,3vw,13px)}
+  .c1-cta-h{font-size:clamp(20px,6vw,26px)}
+  .c1-cta-p{font-size:clamp(11px,3vw,13px);margin-bottom:16px}
+  .c1-cta-btn{font-size:clamp(11px,3vw,13px);padding:11px 16px}
+  /* Nav */
+  .c-nav{margin-top:10px}
+  .c-nbtn{width:34px;height:34px;font-size:14px}
+}
 </style>
 </head>
 <body>
